@@ -8,7 +8,7 @@ hi       ColorColumn                ctermbg=1
 hi       Comment                    ctermfg=7
 hi       Conceal                    ctermfg=7 ctermbg=242
 hi! link Conditional                Statement
-hi       Constant                   ctermfg=13 cterm=bold
+hi       Constant                   ctermfg=219 cterm=bold
 hi! link CurSearch                  Search
 " Cursor
 hi       CursorColumn               ctermbg=242
@@ -68,7 +68,7 @@ hi       IncSearch                  cterm=reverse
 hi! link Include                    PreProc
 hi! link Keyword                    Statement
 hi! link Label                      Statement
-hi       LineNr                     ctermfg=242
+hi       LineNr                     ctermfg=67
 hi! link LineNrAbove                LineNr
 hi! link LineNrBelow                LineNr
 hi! link Macro                      PreProc
@@ -76,7 +76,7 @@ hi       ModeMsg                    cterm=bold
 hi       MoreMsg                    ctermfg=121
 " MsgArea
 hi! link MsgSeparator               StatusLine
-hi       NonText                    ctermfg=12
+hi       NonText                    ctermfg=61
 hi       Normal                     guibg=None
 hi! link NormalFloat                Pmenu
 " NormalNC
@@ -127,7 +127,7 @@ hi       Todo                       ctermfg=0 ctermbg=11
 hi       Type                       ctermfg=121
 hi! link Typedef                    Type
 hi! link VertSplit                  Normal
-hi       Visual                     cterm=NONE ctermfg=NONE ctermbg=242
+hi       Visual                     cterm=NONE ctermfg=NONE ctermbg=30
 " VisualNC
 hi       WarningMsg                 ctermfg=224
 hi! link Whitespace                 NonText

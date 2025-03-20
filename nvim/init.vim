@@ -2,17 +2,17 @@
 " OPTIONS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Disable 24-bit color, use ctermfg and ctermbg for consistent themes across terminals
+set notermguicolors
+
 " Color scheme
 colorscheme vanilla-toms
 
 " Syntax highlighting
 syntax on
 
-" Disable 24-bit color, use ctermfg and ctermbg
-set notermguicolors
-
 " Window title
-set notitle
+set title
 
 " How many lines to scroll at once
 set scrolljump=5
@@ -68,10 +68,6 @@ set display=lastline,uhex
 " Limit width in wide terminals
 " set columns=80
 
-" Only show one window at a time, only status rows of the rest
-" set winminheight=0
-" set winheight=999
-
 " Indentation
 set autoindent
 " set smartindent
@@ -95,12 +91,16 @@ set wildmode=list:longest
 " Allow leaving buffer with unsaved changes
 set hidden
 
+" Visualize spaces
+set listchars=tab:──,trail:─,nbsp:+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " FILE TYPES
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Period (.) is not part of a word; for some reason this has to be set all the time
-autocmd bufenter * set iskeyword-=.
+" Also enable 'list' to show tabs and trailing whitespace
+autocmd bufenter * set iskeyword-=. | set list
 
 " Smart indentation for programming languages
 autocmd FileType java       set nocindent | set noexpandtab | set tabstop=4 | set shiftwidth=4
@@ -118,21 +118,21 @@ autocmd FileType python     set nocindent | set expandtab   | set tabstop=8 | se
 autocmd FileType javascript set nocindent | set expandtab   | set tabstop=8 | set shiftwidth=4
 
 " Strip trailing whitespace before saving
-autocmd BufWritePre *.go,*.c,*.h,*.cc,*.py %s/\s\+$//e
+autocmd BufWritePre * %s/\s\+$//e
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEYBOARD SHORTCUTS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Browse the windows
+" Scroll through windows with Ctrl + up/down keys
 nmap <C-j> <C-w>w
 nmap <C-k> <C-w>W
 
-" Browse the buffers
+" Scroll through buffers with Ctrl + left/right keys
 nmap <C-h> :bprevious<CR>
 nmap <C-l> :bnext<CR>
 
-" Close buffer
+" Close buffer with Ctrl-C
 nmap <C-c> :bdelete<CR>
 
 " Go to after pasted text
@@ -154,13 +154,11 @@ cmap <C-a> <Home>
 cmap <C-b> <Left>
 cmap <C-f> <Right>
 
-" Clipboard
-vmap <C-c> "+y
-vmap <C-x> "+d
-nmap <C-v> "+gP
-
-" Save all
+" Save all with Ctrl-S
 nmap <C-s> :wa<CR>
+
+" Exit with Ctrl-D
+nmap <C-d> :q<CR>
 
 " Go shortcuts
 autocmd FileType go nmap gd :GoDef<CR>
@@ -203,16 +201,35 @@ Plug 'kdheepak/tabline.nvim'
 Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-Plug 'fatih/vim-go'
 
 " End vim-plug configuration
 call plug#end()
 
 " Begin Lua configuration of plugins
 lua << END
+function _theme_cba(c, b, a)
+    return {a = {bg = a, fg = 15}, b = {bg = b, fg = 15}, c = {bg = c, fg = 15}}
+end
+lualine_theme = {
+    -- Indigo/pink theme
+    -- normal   = _theme_cba(57, 93, 165),
+    -- insert   = _theme_cba(57, 92, 162),
+    -- visual   = _theme_cba(57, 63, 75),
+    -- replace  = _theme_cba(57, 92, 162),
+    -- command  = _theme_cba(57, 93, 165),
+    -- inactive = _theme_cba(21, 57, 129),
+
+    -- Cyan/blue theme
+    normal   = _theme_cba(24, 60, 96),
+    insert   = _theme_cba(24, 96, 132),
+    visual   = _theme_cba(24, 30, 36),
+    replace  = _theme_cba(24, 96, 132),
+    command  = _theme_cba(24, 25, 26),
+    inactive = _theme_cba(240, 242, 244),
+}
 require('lualine').setup {
     options = {
-        theme = 'modus-vivendi'
+        theme = lualine_theme
     }
 }
 require('tabline').setup{
@@ -223,7 +240,7 @@ require('tabline').setup{
 require('neo-tree').setup{}
 END
 
-" Begin Vim configuration of plugins
+" BufExplorer config
 let g:bufExplorerDefaultHelp=0
 let g:bufExplorerShowNoName=1
 let g:bufExplorerShowRelativePath=1
@@ -232,7 +249,12 @@ let g:bufExplorerShowRelativePath=1
 " KEYBOARD SHORTCUTS FOR PLUGINS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nmap <C-n> :Neotree position=current<CR>
-" nmap <C-m> :Neotree buffers position=current<CR>
+nmap <C-n> :Neotree position=current reveal<CR>
+nmap <C-m> :Neotree buffers position=current<CR>
 nmap <C-p> :BufExplorer<CR>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LOCAL ADDITIONS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+source ~/.config/nvim/init-local.vim
