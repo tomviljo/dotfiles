@@ -1,0 +1,19 @@
+[user]
+	email = CHANGEME
+	name = Tom Weber
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore
+[alias]
+	a = add
+	b = branch
+	c = commit
+	co = checkout
+	cp = cherry-pick
+	d = diff
+	l = log
+	r = rebase
+	s = status
+	sm = submodule
+[push]
+	default = current
