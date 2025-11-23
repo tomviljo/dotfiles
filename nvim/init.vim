@@ -197,7 +197,6 @@ Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 
 " Desired plugins
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'kdheepak/tabline.nvim'
 Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
@@ -225,16 +224,21 @@ lualine_theme = {
     visual   = _theme_cba(24, 30, 36),
     replace  = _theme_cba(24, 96, 132),
     command  = _theme_cba(24, 25, 26),
-    inactive = _theme_cba(240, 242, 244),
+    inactive = _theme_cba(60, 60, 60),
 }
 require('lualine').setup {
     options = {
-        theme = lualine_theme
-    }
-}
-require('tabline').setup{
-    options = {
-        modified_italic = false
+        theme = lualine_theme,
+        icons_enabled = true,
+        always_show_tabline = true,
+    },
+    tabline = {
+        lualine_a = {'buffers'},
+        lualine_b = {},
+        lualine_c = {},
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {}
     }
 }
 require('neo-tree').setup{}
