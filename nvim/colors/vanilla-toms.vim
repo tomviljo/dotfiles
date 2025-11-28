@@ -5,7 +5,7 @@ let g:colors_name = 'vanilla-toms'
 hi! link Boolean                    Constant
 hi! link Character                  Constant
 hi       ColorColumn                ctermbg=1
-hi       Comment                    ctermfg=7
+hi       Comment                    ctermfg=248
 hi       Conceal                    ctermfg=7 ctermbg=242
 hi! link Conditional                Statement
 hi       Constant                   ctermfg=219 cterm=bold
